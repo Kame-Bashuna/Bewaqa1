@@ -1,38 +1,53 @@
 
-"use client"
-import React from 'react';
+
+"use client";
+import React, { useState } from 'react';
 import Link from 'next/link';
 
-const CameraPage = () => {
-  return (
-    <div id='camera' className="min-h-screen bg-gray-100 flex flex-col">
-        
+const CameraPermission = () => {
+  const [isVisible, setIsVisible] = useState(true); 
 
-      <main className="flex-grow flex items-center justify-center px-4">
-        <div className="bg-white rounded-lg shadow-md p-6 w-full max-w-md">
-          <p className="text-center text-gray-700 mb-4">
-            Bheta wants permission to use your camera
-          </p>
-          <div className="flex justify-between">
-            <button className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">
-              Cancel
-            </button>
-
-
-            <Link href='/components/Camerapermission'>
-                <button className="px-4 py-2 bg-slate-900 text-white rounded-md ">
-                  Allow
-                  </button>
-      </Link>
+  const handleCancel = () => {
     
+    setIsVisible(false); 
+  };
 
-          </div>
+  if (!isVisible) {
+    return (
+      <div className="flex-grow flex items-center justify-center">
+        <p className="text-gray-700">Permission request canceled.</p>
+        
+        <Link href="/">
+          <button className="mt-4 px-4 py-2 bg-slate-900 text-white rounded-md">
+            Go Back Home
+          </button>
+        </Link>
+      </div>
+    );
+  }
+
+  return (
+    <main className="flex-grow flex items-center justify-center px-4 rounded-lg mt-80">
+      <div className="bg-white p-6 w-full max-w-md rounded-lg shadow-xl ring-black ring-offset-1 shadow-black">
+        <p className="text-center text-gray-700 mb-4">
+          Bheta wants permission to use your camera
+        </p>
+        <div className="flex justify-between">
+          <button
+            className="px-4 py-2 border border-black rounded-md text-gray-700 hover:bg-gray-50"
+            onClick={handleCancel} 
+          >
+            Cancel
+          </button>
+          <Link href="/components/Camerapermission">
+            <button className="px-4 py-2 bg-slate-900 text-white rounded-md">
+              Allow
+            </button>
+          </Link>
         </div>
-      </main>
-
-     
-    </div>
+      </div>
+    </main>
   );
 };
 
-export default CameraPage;
+export default CameraPermission;
